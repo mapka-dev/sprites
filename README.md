@@ -1,0 +1,1 @@
+# Mapka Sprites stack
