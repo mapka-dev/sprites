@@ -1,0 +1,21 @@
+# dependencies
+node_modules
+.yarn/cache
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# production
+build
+dist
+lib
+
+# misc
+.env
+.eslintcache
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

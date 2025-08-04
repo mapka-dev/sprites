@@ -1,0 +1,94 @@
+name: Publish
+
+# https://dev.to/xcanchal/automatic-versioning-in-a-lerna-monorepo-using-github-actions-4hij
+# Problems:
+#   I tried to use github registry to publish public packages,
+#   but packages in github require auth to install even if package is public.
+#
+#   Npm token will not be configured without registry-url set in actions/setup-node
+#   To configure authToken for npm both registry-url and secret is needed.
+#   When publishing public package, publishConfig.access need to be configured on each package
+#
+#   Lerna need fetch-depth: 0 (full fetch) on checkout to be able generate full changelog
+
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
+jobs:
+  publish:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: "Checkout"
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js 
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24.4.1'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Cache node_modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          node_modules
+          .yarn/install-state.gz
+          .yarn/cache
+        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
+
+    - name: Install 
+      run: yarn install --immutable
+      
+    - name: Build
+      run: yarn build
+
+    - name: Lint
+      run: yarn lint
+
+    - name: Test
+      run: yarn test
+
+    - name: Setup git user
+      run: |
+        echo "Setup git user to github action user"
+        git config user.name "${{ github.actor }}"
+        git config user.email "${{ github.actor}}@users.noreply.github.com"
+
+    - name: "Version and publish"
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "Version"
+        yarn lerna version \
+          --conventional-commits \
+          --yes
+        
+        echo "Publish"
+        yarn lerna publish from-git \
+          --loglevel debug \
+          --yes
+          
+    - name: Upload fonts to mapka
+      working-directory: packages/fonts
+      run: |
+        echo "MAPKA_DEV_API_URL=${{ secrets.MAPKA_DEV_API_URL }}" >> .env
+        echo "MAPKA_DEV_API_KEY=${{ secrets.MAPKA_DEV_API_KEY }}" >> .env
+
+        echo "MAPKA_PROD_API_URL=${{ secrets.MAPKA_PROD_API_URL }}" >> .env
+        echo "MAPKA_PROD_API_KEY=${{ secrets.MAPKA_PROD_API_KEY }}" >> .env
+
+        echo "Upload fonts to mapka"
+        yarn upload

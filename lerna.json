@@ -1,0 +1,33 @@
+{
+  "npmClient": "yarn",
+  "version": "0.3.0",
+  "changelogPreset": "conventional-changelog-conventionalcommits",
+  "command": {
+    "publish": {
+      "cleanupTempFiles": true,
+      "removePackageFields": [
+        "devDependencies",
+        "scripts"
+      ]
+    },
+    "version": {
+      "conventionalCommits": true,
+      "syncWorkspaceLock": true,
+      "createRelease": "github",
+      "message": "chore(release): publish new version %v",
+      "changelogIncludeCommitsClientLogin": " - by @%l",
+      "changelogHeaderMessage": "## Mapka font stack",
+      "allowBranch": "master",
+      "ignoreChanges": [
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/*.md",
+        "yarn.lock"
+      ]
+    }
+  },
+  "$schema": "node_modules/@lerna-lite/cli/schemas/lerna-schema.json",
+  "packages": [
+    "packages/*"
+  ]
+}
