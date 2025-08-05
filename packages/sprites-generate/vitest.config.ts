@@ -5,5 +5,6 @@ export default defineProject({
   test: {
     pool: "forks",
     environment: "node",
+  
   },
 });
