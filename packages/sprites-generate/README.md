@@ -1,0 +1,1 @@
+# @mapka/sprites-generate

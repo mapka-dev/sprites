@@ -1,0 +1,30 @@
+{
+  "name": "@mapka/sprites-generate",
+  "version": "0.3.0",
+  "description": "Generate sprites layout from individual svg icons",
+  "main": "./lib/index.js",
+  "license": "BSD-2-Clause",
+  "type": "module",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mapka-dev/sprites.git"
+  },
+  "devDependencies": {
+    "@chyzwar/tsconfig": "^0.4.0",
+    "@types/node": "^24.2.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.0.6",
+    "vitest": "^3.2.4"
+  },
+  "files": [
+    "src/",
+    "lib/",
+    "LICENSE",
+    "!**/__tests__/",
+    "!lib/buildInfo.json"
+  ]
+}

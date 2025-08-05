@@ -1,0 +1,25 @@
+{
+  "name": "@mapka/sprites",
+  "version": "0.3.0",
+  "description": "Generated sprites for Mapka",
+  "license": "BSD-2-Clause",
+  "type": "module",
+  "sideEffects": false,
+  "private": true,
+  "scripts": {
+    "generate": "node generate.ts",
+    "upload": "node upload.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mapka-dev/sprites.git"
+  },
+  "dependencies": {
+    "@mapka/sprites-generate": "^0.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.2.0",
+    "pino": "^9.7.0",
+    "pino-pretty": "^13.1.1"
+  }
+}
