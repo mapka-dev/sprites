@@ -1,14 +1,10 @@
-var mapnik = require('mapnik');
-var assert = require('assert');
-var ShelfPack = require('@mapbox/shelf-pack');
-var queue = require('queue-async');
-var extractMetadata = require('./extract-svg-metadata');
-var emptyPNG = new mapnik.Image(1, 1).encodeSync('png');
+import mapnik from 'mapnik';
+import assert from 'assert';
+import ShelfPack from '@mapbox/shelf-pack';
+import queue from 'queue-async';
+import {extractMetadata} from './metadata.js';
 
-module.exports.generateLayout = generateLayout;
-module.exports.generateLayoutUnique = generateLayoutUnique;
-module.exports.generateImage = generateImage;
-module.exports.generateOptimizedImage = generateOptimizedImage;
+var emptyPNG = new mapnik.Image(1, 1).encodeSync('png');
 
 
 function heightAscThanNameComparator(a, b) {
@@ -30,7 +26,7 @@ function heightAscThanNameComparator(a, b) {
  * @param   {Function}              callback                       Accepts two arguments, `err` and `layout` Object
  * @return  {DataLayout|ImgLayout}  layout                         Generated Layout Object with sprite contents
  */
-function generateLayout(options, callback) {
+export function generateLayout(options, callback) {
     options = options || {};
     options.unique = false;
     options.extractMetadata = options.extractMetadata === undefined ? true : options.extractMetadata;
@@ -57,7 +53,7 @@ function generateLayout(options, callback) {
  * @param   {Function}              callback                       Accepts two arguments, `err` and `layout` Object
  * @return  {DataLayout|ImgLayout}  layout                         Generated Layout Object with sprite contents
  */
-function generateLayoutUnique(options, callback) {
+export function generateLayoutUnique(options, callback) {
     options = options || {};
     options.unique = true;
     options.extractMetadata = options.extractMetadata === undefined ? true : options.extractMetadata;
@@ -216,7 +212,7 @@ function generateLayoutInternal(options, callback) {
  * @param  {ImgLayout}   layout    An {@link ImgLayout} Object used to generate the image
  * @param  {Function}    callback  Accepts two arguments, `err` and `image` data
  */
-function generateImage(layout, callback) {
+export function generateImage(layout, callback) {
     assert(typeof layout === 'object' && typeof callback === 'function');
     if (!layout.items.length) return callback(null, emptyPNG);
     mapnik.blend(layout.items, {
@@ -233,7 +229,7 @@ function generateImage(layout, callback) {
  * @param  {Object[]}    [options.quality] Number of colors to crush the PNG to (using color quantization) (default 128)
  * @param  {Function}    callback  Accepts two arguments, `err` and `image` data
  */
-function generateOptimizedImage(layout, options, callback) {
+export function generateOptimizedImage(layout, options, callback) {
     assert(typeof layout === 'object' && typeof options === 'object' && typeof callback === 'function');
     if (!layout.items.length) return callback(null, emptyPNG);
     mapnik.blend(layout.items, {

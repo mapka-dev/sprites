@@ -1,8 +1,10 @@
-const { resolvePluginConfig } = require('svgo/lib/svgo/config');
-const { parseSvg } = require('svgo/lib/parser');
-const { stringifySvg } = require('svgo/lib/stringifier');
-const { invokePlugins } = require('svgo/lib/svgo/plugins');
-const computePathBounds = require('svg-boundings').path;
+import { resolvePluginConfig } from 'svgo/lib/svgo/config';
+import { parseSvg } from 'svgo/lib/parser';
+import { stringifySvg } from 'svgo/lib/stringifier';
+import { invokePlugins } from 'svgo/lib/svgo/plugins';
+import svgBoundings from 'svg-boundings';
+
+const computePathBounds = svgBoundings.path;
 
 const metadataPrefix = 'mapbox-';
 
@@ -144,7 +146,7 @@ const extractPluginsConfig = [
  * @param   {Function}              callback              Accepts two arguments, `err` and `metadata` Object
  * @return  {Metadata}              metadata              An object with the extracted information.
  */
-function extractMetadata(img, callback) {
+export function extractMetadata(img, callback) {
     try {
         const imgSvg = Buffer.isBuffer(img.svg) ? img.svg.toString('utf-8') : img.svg;
 
@@ -189,7 +191,6 @@ function extractMetadata(img, callback) {
     }
 }
 
-module.exports = extractMetadata;
 
 /**
  * A `Metadata` objects stores information about how an image can be stretched in a non-linear

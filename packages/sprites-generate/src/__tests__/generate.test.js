@@ -3,8 +3,13 @@ import {resolve, join, basename} from 'path';
 import {globSync, readFileSync} from 'fs';
 import mapnik from 'mapnik';
 import queue from 'queue-async';
-import spritezero from '../index.js';
-import { rejects } from 'assert';
+import {
+    generateLayout, 
+    generateLayoutUnique, 
+    generateImage, 
+    generateOptimizedImage
+} from '../generate.js';
+
 
 const emptyPNG = new mapnik.Image(1, 1).encodeSync('png');
 
@@ -22,7 +27,7 @@ function getFixtures() {
 }
 
 test('generateLayout', () => {
-    spritezero.generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }, function(err, layout) {
+    generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }, function(err, layout) {
         expect(err).toBeNull();
         expect(layout.items.length).toBe(362);
         expect(layout.items[0].x).toBe(0);  
@@ -31,7 +36,7 @@ test('generateLayout', () => {
 });
 
 test('generateLayout with icon size filter', function() {
-    spritezero.generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false, removeOversizedIcons: true, maxIconSize: 15 }, function(err, layout) {
+    generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false, removeOversizedIcons: true, maxIconSize: 15 }, function(err, layout) {
         expect(err).toBeNull();
         expect(layout.items.length).toBe(119);
         expect(layout.items[0].x).toBe(0);
@@ -42,7 +47,7 @@ test('generateLayout with icon size filter', function() {
 test('generateLayout bench (concurrency=1,x10)', function() {
     var start = Date.now();
     var q = queue(1);
-    for (var i = 0; i < 10; i++) q.defer(spritezero.generateLayout, { imgs: getFixtures(), pixelRatio: 1, format: false });
+    for (var i = 0; i < 10; i++) q.defer(generateLayout, { imgs: getFixtures(), pixelRatio: 1, format: false });
     q.awaitAll(function(err) {
         expect(err).toBeNull();
         const end = Date.now();
@@ -53,7 +58,7 @@ test('generateLayout bench (concurrency=1,x10)', function() {
 test('generateLayout bench (concurrency=4,x20)', function() {
     var start = Date.now();
     var q = queue(4);
-    for (var i = 0; i < 20; i++) q.defer(spritezero.generateLayout, { imgs: getFixtures(), pixelRatio: 1, format: false });
+    for (var i = 0; i < 20; i++) q.defer(generateLayout, { imgs: getFixtures(), pixelRatio: 1, format: false });
     q.awaitAll(function(err) {
         expect(err).toBeNull();
         const end = Date.now();
@@ -62,7 +67,7 @@ test('generateLayout bench (concurrency=4,x20)', function() {
 });
 
 test('generateLayoutUnique', function() {
-    spritezero.generateLayoutUnique({ 
+    generateLayoutUnique({ 
         imgs: getFixtures(), 
         pixelRatio: 1, 
         format: false 
@@ -76,7 +81,7 @@ test('generateLayoutUnique', function() {
 });
 
 test('generateLayout', function() {
-    spritezero.generateLayout({ 
+    generateLayout({ 
         imgs: getFixtures(), 
         pixelRatio: 1, 
         format: true 
@@ -90,7 +95,7 @@ test('generateLayout', function() {
 });
 
 test('generateLayoutUnique', function(t) {
-    spritezero.generateLayoutUnique({ 
+    generateLayoutUnique({ 
         imgs: getFixtures(), 
         pixelRatio: 1, 
         format: true 
@@ -116,14 +121,14 @@ describe('generateImage', function() {
         const json = JSON.parse(readFileSync(jsonPath));
 
         await new Promise((resolve) => {
-            spritezero.generateLayout({ imgs: getFixtures(), pixelRatio: scale, format: true }, function(err, formatted) {
+            generateLayout({ imgs: getFixtures(), pixelRatio: scale, format: true }, function(err, formatted) {
                 if(err) reject(err)
 
-                spritezero.generateLayout({ imgs: getFixtures(), pixelRatio: scale, format: false }, function(err, layout) {
+                generateLayout({ imgs: getFixtures(), pixelRatio: scale, format: false }, function(err, layout) {
                     if(err) reject(err)
                     expect(formatted).toEqual(json);
 
-                    spritezero.generateImage(layout, function(err, res) {
+                    generateImage(layout, function(err, res) {
                         if(err) reject(err)
                         expect(res).toBeInstanceOf(Buffer, 'produces image');
                         
@@ -147,7 +152,7 @@ describe('generateImage with format:true', function() {
         const png = readFileSync(optimizedPngPath);
         
         await new Promise((resolve, reject) => {
-            spritezero.generateLayout({ 
+            generateLayout({ 
                 imgs: getFixtures(), 
                 pixelRatio: scale, 
                 format: true 
@@ -156,7 +161,7 @@ describe('generateImage with format:true', function() {
                 expect(imageLayout).toBeInstanceOf(Object);
                 expect(dataLayout).toBeInstanceOf(Object);
                 
-                spritezero.generateOptimizedImage(imageLayout, {quality: 64}, function(err, res) {
+                generateOptimizedImage(imageLayout, {quality: 64}, function(err, res) {
                     if(err) reject(err)
                     expect(res).toBeInstanceOf(Buffer, 'produces image');
              
@@ -181,14 +186,14 @@ describe('generateImageUnique', async function() {
         const json = JSON.parse(readFileSync(jsonPath));
         
         await new Promise((resolve, reject) => {
-            spritezero.generateLayoutUnique({ imgs: getFixtures(), pixelRatio: scale, format: true }, function(err, formatted) {
+            generateLayoutUnique({ imgs: getFixtures(), pixelRatio: scale, format: true }, function(err, formatted) {
                 if(err) reject(err)
 
-                spritezero.generateLayoutUnique({ imgs: getFixtures(), pixelRatio: scale, format: false }, function(err, layout) {
+                generateLayoutUnique({ imgs: getFixtures(), pixelRatio: scale, format: false }, function(err, layout) {
                     if(err) reject(err)
                     expect(formatted).toEqual(json);
 
-                    spritezero.generateImage(layout, function(err, res) {
+                    generateImage(layout, function(err, res) {
                         if(err) reject(err)
                         expect(res).toBeInstanceOf(Buffer, 'produces image');
                         
@@ -202,23 +207,23 @@ describe('generateImageUnique', async function() {
 });
 
 test('generateLayout with empty input', function() {
-    spritezero.generateLayout({ imgs: [], pixelRatio: 1, format: true }, function(err, layout) {
+    generateLayout({ imgs: [], pixelRatio: 1, format: true }, function(err, layout) {
         expect(err).toBeNull();
         expect(layout).toEqual({});
     });
 });
 
 test('generateLayoutUnique with empty input', function() {
-    spritezero.generateLayoutUnique({ imgs: [], pixelRatio: 1, format: true }, function(err, layout) {
+    generateLayoutUnique({ imgs: [], pixelRatio: 1, format: true }, function(err, layout) {
         expect(err).toBeNull();
         expect(layout).toEqual({});
     });
 });
 
 test('generateImage with empty input', function() {
-    spritezero.generateLayout({ imgs: [], pixelRatio: 1, format: false }, function(err, layout) {
+    generateLayout({ imgs: [], pixelRatio: 1, format: false }, function(err, layout) {
         expect(err).toBeNull();
-        spritezero.generateImage(layout, function(err, sprite) {
+        generateImage(layout, function(err, sprite) {
             expect(err).toBeNull();
             expect(sprite).toBeDefined();
             expect(sprite).toBeInstanceOf(Object);
@@ -227,9 +232,9 @@ test('generateImage with empty input', function() {
 });
 
 test('generateImage unique with empty input', function() {
-    spritezero.generateLayoutUnique({ imgs: [], pixelRatio: 1, format: false }, function(err, layout) {
+    generateLayoutUnique({ imgs: [], pixelRatio: 1, format: false }, function(err, layout) {
         expect(err).toBeNull();
-        spritezero.generateImage(layout, function(err, sprite) {
+        generateImage(layout, function(err, sprite) {
             expect(err).toBeNull();
             expect(sprite).toBeDefined();
             expect(sprite).toBeInstanceOf(Object);
@@ -238,7 +243,7 @@ test('generateImage unique with empty input', function() {
 });
 
 test('generateImage unique with max_size', function() {
-    spritezero.generateLayoutUnique({ imgs: getFixtures(), pixelRatio: 1, format: false, maxIconSize: 10 }, function(err, layout) {
+    generateLayoutUnique({ imgs: getFixtures(), pixelRatio: 1, format: false, maxIconSize: 10 }, function(err, layout) {
         expect(err).toBeInstanceOf(Error);
         expect(err.message).toMatch(/image created from svg must be \d+ pixels or fewer on each side/);
     });
@@ -256,7 +261,7 @@ test('generateLayout relative width/height SVG returns empty', function() {
       }
     ];
 
-    spritezero.generateLayout({ imgs: fixtures, pixelRatio: 1, format: true }, function(err, formatted) {
+    generateLayout({ imgs: fixtures, pixelRatio: 1, format: true }, function(err, formatted) {
         expect(err).toBeNull();
         expect(formatted).toEqual({ 
             art: { width: 18, height: 18, x: 0, y: 0, pixelRatio: 1 } 
@@ -272,11 +277,11 @@ test('generateLayout only relative width/height SVG returns empty sprite object'
       }
     ];
 
-    spritezero.generateLayout({ imgs: fixtures, pixelRatio: 1, format: false }, function(err, layout) {
+    generateLayout({ imgs: fixtures, pixelRatio: 1, format: false }, function(err, layout) {
         expect(err).toBeNull();
         expect(layout).toEqual({ width: 1, height: 1, items: []}, 'empty layout');
 
-        spritezero.generateImage(layout, function(err, image) {
+        generateImage(layout, function(err, image) {
             expect(err).toBeNull();
             expect(image).toEqual(emptyPNG, 'empty PNG response');
         });
@@ -295,7 +300,7 @@ test('generateLayout containing image with no width or height SVG', function(t) 
       }
     ];
 
-    spritezero.generateLayout({ imgs: fixtures, pixelRatio: 1, format: true }, function(err, formatted) {
+    generateLayout({ imgs: fixtures, pixelRatio: 1, format: true }, function(err, formatted) {
         expect(err).toBeNull();
         expect(formatted).toEqual({ art: { width: 18, height: 18, x: 0, y: 0, pixelRatio: 1 } }, 'only "art" is in layout');
     });
@@ -309,11 +314,11 @@ test('generateLayout containing only image with no width or height', function() 
         }
       ];
 
-      spritezero.generateLayout({ imgs: fixtures, pixelRatio: 1, format: false }, function(err, layout) {
+      generateLayout({ imgs: fixtures, pixelRatio: 1, format: false }, function(err, layout) {
           expect(err).toBeNull();
           expect(layout).toEqual({ width: 1, height: 1, items: []}, 'empty layout');
 
-          spritezero.generateImage(layout, function(err, image) {
+          generateImage(layout, function(err, image) {
                 expect(err).toBeNull();
                 expect(image).toEqual(emptyPNG, 'empty PNG response');
           });
@@ -328,7 +333,7 @@ test('generateLayout with extractMetadata option set to false', function (t) {
         }
     ];
 
-    spritezero.generateLayout({ imgs: fixtures, pixelRatio: 1, format: true, extractMetadata: false }, function (err, formatted) {
+    generateLayout({ imgs: fixtures, pixelRatio: 1, format: true, extractMetadata: false }, function (err, formatted) {
         expect(err).toBeNull();
         expect(formatted).toEqual({ cn: { width: 20, height: 23, x: 0, y: 0, pixelRatio: 1 } });
     });
@@ -342,7 +347,7 @@ test('generateLayout without extractMetadata option set (defaults to true)', fun
         }
     ];
 
-    spritezero.generateLayout({ imgs: fixtures, pixelRatio: 1, format: true }, function (err, formatted) {
+    generateLayout({ imgs: fixtures, pixelRatio: 1, format: true }, function (err, formatted) {
         expect(err).toBeNull();
         expect(formatted).toEqual({ cn: { width: 20, height: 23, x: 0, y: 0, pixelRatio: 1, content: [2, 5, 18, 18], stretchX: [[4, 16]], stretchY: [[5, 16]] } });
     });
@@ -356,7 +361,7 @@ test('generateLayout without extractMetadata option set (defaults to true) when 
         }
     ];
 
-    spritezero.generateLayout({ imgs: fixtures, pixelRatio: 1, format: false }, function (err, formatted) {
+    generateLayout({ imgs: fixtures, pixelRatio: 1, format: false }, function (err, formatted) {
         expect(err).toBeNull();
         expect(formatted.items[0].stretchX).toBeUndefined();
     });
@@ -369,7 +374,7 @@ test('generateLayout with both placeholder and stretch zone', function (t) {
             svg: readFileSync(join(import.meta.dirname, './fixture/svg-metadata/au-national-route-5.svg'))
         }
     ];
-    spritezero.generateLayout({ imgs: fixtures, pixelRatio: 1, format: true }, function (err, formatted) {
+    generateLayout({ imgs: fixtures, pixelRatio: 1, format: true }, function (err, formatted) {
         expect(err).toBeNull();
         expect(formatted).toEqual(
             {

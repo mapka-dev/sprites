@@ -5,7 +5,7 @@
  * @param   {Metadata}              metadata         A metadata object.
  * @return  {null|Error}            err              An `Error` object if validation fails, `null` otherwise.
  */
-function validateMetadata(img, metadata) {
+export function validateMetadata(img, metadata) {
     if (!img || typeof img !== 'object') {
         return new Error('image is invalid');
     }
@@ -75,4 +75,3 @@ function validateMetadata(img, metadata) {
 
     return null;
 }
-module.exports = validateMetadata;

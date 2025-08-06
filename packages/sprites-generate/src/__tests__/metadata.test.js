@@ -1,8 +1,7 @@
 import {describe, expect, test} from 'vitest';
 import {readFileSync} from 'fs';
-
-const extractMetadata = require('../extract-svg-metadata');
-const validateMetadata = require('../validate-svg-metadata');
+import {extractMetadata} from '../metadata.js';
+import {validateMetadata} from '../validate.js';
 
 test('image without metadata', function() {
     extractMetadata({

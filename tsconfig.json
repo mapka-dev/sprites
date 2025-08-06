@@ -10,5 +10,6 @@
   },
   "include": [],
   "references": [
+    { "path": "./packages/sprites-generate" }
   ]
 }
