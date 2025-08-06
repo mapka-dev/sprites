@@ -1,9 +1,9 @@
-const generate = require('./lib/generate');
+const generate = require('./generate');
 
 exports.generateLayout = generate.generateLayout;
 exports.generateLayoutUnique = generate.generateLayoutUnique;
 exports.generateImage = generate.generateImage;
 exports.generateOptimizedImage = generate.generateOptimizedImage;
 
-exports.extractMetadata = require('./lib/extract-svg-metadata');
-exports.validateMetadata = require('./lib/validate-svg-metadata');
+exports.extractMetadata = require('./extract-svg-metadata');
+exports.validateMetadata = require('./validate-svg-metadata');

@@ -1,4 +1,7 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["@chyzwar/biome-config/lib"]
+  "extends": ["@chyzwar/biome-config/lib"],
+  "files": {
+    "includes": ["**/*.ts"]
+  }
 }
