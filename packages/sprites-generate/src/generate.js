@@ -1,11 +1,8 @@
-import mapnik from '@mapnik/mapnik';
+import mapnik from "@mapnik/mapnik";
 import assert from 'assert';
 import ShelfPack from '@mapka/shelf-pack';
 import queue from 'queue-async';
 import {extractMetadata} from './metadata.js';
-
-var emptyPNG = new mapnik.Image(1, 1).encodeSync('png');
-
 
 function heightAscThanNameComparator(a, b) {
     return (b.height - a.height) || ((a.id === b.id) ? 0 : (a.id < b.id ? -1 : 1));
@@ -206,41 +203,6 @@ function generateLayoutInternal(options, callback) {
 }
 
 
-/**
- * Generate a PNG image with positioned icons on a sprite.
- *
- * @param  {ImgLayout}   layout    An {@link ImgLayout} Object used to generate the image
- * @param  {Function}    callback  Accepts two arguments, `err` and `image` data
- */
-export function generateImage(layout, callback) {
-    assert(typeof layout === 'object' && typeof callback === 'function');
-    if (!layout.items.length) return callback(null, emptyPNG);
-    
-    mapnik.blend(layout.items, {
-        width: layout.width,
-        height: layout.height
-    }, callback);
-}
-
-/**
- * Generate a PNG image with positioned icons on a sprite.
- *
- * @param  {ImgLayout}   layout    An {@link ImgLayout} Object used to generate the image
- * @param  {Object}      [options]
- * @param  {number}        [options.quality] Number of colors to crush the PNG to (using color quantization) (default 128)
- * @param  {Function}    callback  Accepts two arguments, `err` and `image` data
- */
-export function generateOptimizedImage(layout, options, callback) {
-    assert(typeof layout === 'object' && typeof options === 'object' && typeof callback === 'function');
-    if (!layout.items.length) return callback(null, emptyPNG);
-    mapnik.blend(layout.items, {
-        type: 'png',
-        quality: options.quality || 128,
-        mode: 'hextree',
-        width: layout.width,
-        height: layout.height
-    }, callback);
-}
 
 /**
  * Spritezero can generate 2 kinds of layout objects: {@link DataLayout} and {@link ImgLayout}.

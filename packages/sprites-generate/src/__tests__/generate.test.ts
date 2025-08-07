@@ -5,11 +5,15 @@ import { basename, join, resolve } from "node:path";
 import mapnik from "@mapnik/mapnik";
 import { describe, expect, test } from "vitest";
 import {
-  generateImage,
   generateLayout,
   generateLayoutUnique,
-  generateOptimizedImage,
 } from "../generate.js";
+
+import {
+  generateImage,
+  generateOptimizedImage,
+} from "../image.js";
+
 
 const emptyPNG = new mapnik.Image(1, 1).encodeSync("png");
 
@@ -121,17 +125,15 @@ describe("generateImage", () => {
 
           generateLayout(
             { imgs: getFixtures(), pixelRatio: scale, format: false },
-            (err?: Error, layout?: any) => {
+            async (err?: Error, layout?: any) => {
               if (err) reject(err);
               expect(formatted).toEqual(json);
 
-              generateImage(layout, (err?: Error, res?: any) => {
-                if (err) reject(err);
-                expect(res).toBeInstanceOf(Buffer);
+            const img = await generateImage(layout)
+              expect(img).toBeInstanceOf(Buffer);
 
-                expect(Math.abs(res.length - png.length)).toBeLessThan(1000);
-                resolve();
-              });
+              expect(Math.abs(img.length - png.length)).toBeLessThan(1000);
+              resolve();
             },
           );
         },
@@ -155,18 +157,15 @@ describe("generateImage with format:true", () => {
           pixelRatio: scale,
           format: true,
         },
-        (err?: Error, dataLayout?: any, imageLayout?: any) => {
+        async (err?: Error, dataLayout?: any, imageLayout?: any) => {
           if (err) reject(err);
           expect(imageLayout).toBeInstanceOf(Object);
           expect(dataLayout).toBeInstanceOf(Object);
 
-          generateOptimizedImage(imageLayout, { quality: 64 }, (err?: Error, res?: any) => {
-            if (err) reject(err);
-            expect(res).toBeInstanceOf(Buffer);
-
-            expect(Math.abs(res.length - png.length)).toBeLessThan(1000);
+          const image = await generateOptimizedImage(imageLayout, { quality: 64 });
+            expect(image).toBeInstanceOf(Buffer);
+            expect(Math.abs(image.length - png.length)).toBeLessThan(1000);
             resolve();
-          });
         },
       );
     });
@@ -188,17 +187,15 @@ describe("generateImageUnique", async () => {
 
           generateLayoutUnique(
             { imgs: getFixtures(), pixelRatio: scale, format: false },
-            (err?: Error, layout?: any) => {
+            async (err?: Error, layout?: any) => {
               if (err) reject(err);
               expect(formatted).toEqual(json);
 
-              generateImage(layout, (err?: Error, res?: any) => {
-                if (err) reject(err);
-                expect(res).toBeInstanceOf(Buffer);
+              const image = await generateImage(layout)
+                expect(image).toBeInstanceOf(Buffer);
 
-                expect(Math.abs(res.length - png.length)).toBeLessThan(1000);
+                expect(Math.abs(image.length - png.length)).toBeLessThan(1000);
                 resolve();
-              });
             },
           );
         },
@@ -222,24 +219,18 @@ test("generateLayoutUnique with empty input", () => {
 });
 
 test("generateImage with empty input", () => {
-  generateLayout({ imgs: [], pixelRatio: 1, format: false }, (err?: Error, layout?: any) => {
+  generateLayout({ imgs: [], pixelRatio: 1, format: false }, async (err?: Error, layout?: any) => {
     expect(err).toBeNull();
-    generateImage(layout, (err?: Error, sprite?: any) => {
-      expect(err).toBeNull();
-      expect(sprite).toBeDefined();
-      expect(sprite).toBeInstanceOf(Object);
-    });
+    const image = await generateImage(layout);
+    expect(image).toBeInstanceOf(Buffer);
   });
 });
 
 test("generateImage unique with empty input", () => {
-  generateLayoutUnique({ imgs: [], pixelRatio: 1, format: false }, (err?: Error, layout?: any) => {
+  generateLayoutUnique({ imgs: [], pixelRatio: 1, format: false }, async (err?: Error, layout?: any) => {
     expect(err).toBeNull();
-    generateImage(layout, (err?: Error, sprite?: any) => {
-      expect(err).toBeNull();
-      expect(sprite).toBeDefined();
-      expect(sprite).toBeInstanceOf(Object);
-    });
+    const image = await generateImage(layout);
+    expect(image).toBeInstanceOf(Buffer);
   });
 });
 
@@ -286,16 +277,13 @@ test("generateLayout only relative width/height SVG returns empty sprite object"
     },
   ];
 
-  generateLayout({ imgs: fixtures, pixelRatio: 1, format: false }, (err?: Error, layout?: any) => {
+  generateLayout({ imgs: fixtures, pixelRatio: 1, format: false }, async (err?: Error, layout?: any) => {
     expect(err).toBeNull();
     // empty layout
     expect(layout).toEqual({ width: 1, height: 1, items: [] });
 
-    generateImage(layout, (err?: Error, image?: any) => {
-      expect(err).toBeNull();
-      //only "art" is in layout
-      expect(image).toEqual(emptyPNG);
-    });
+    const image = await generateImage(layout);
+    expect(image).toEqual(emptyPNG);
   });
 });
 
@@ -330,17 +318,14 @@ test("generateLayout containing only image with no width or height", () => {
     },
   ];
 
-  generateLayout({ imgs: fixtures, pixelRatio: 1, format: false }, (err?: Error, layout?: any) => {
+  generateLayout({ imgs: fixtures, pixelRatio: 1, format: false }, async (err?: Error, layout?: any) => {
     expect(err).toBeNull();
 
     // empty layout
     expect(layout).toEqual({ width: 1, height: 1, items: [] });
 
-    generateImage(layout, (err?: Error, image?: any) => {
-      expect(err).toBeNull();
-      //empty PNG response
-      expect(image).toEqual(emptyPNG);
-    });
+    const image = await generateImage(layout)
+    expect(image).toEqual(emptyPNG);
   });
 });
 

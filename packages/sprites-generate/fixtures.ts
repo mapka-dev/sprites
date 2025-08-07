@@ -1,7 +1,8 @@
 import { readdirSync, writeFile } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { basename, join, resolve } from "node:path";
-import { generateImage, generateLayout, generateLayoutUnique, generateOptimizedImage } from "./lib/index.js";
+import { generateImage, generateOptimizedImage } from "./lib/image.js";
+import { generateLayout, generateLayoutUnique } from "./lib/index.js";
 
 function filepaths(dir) {
   return readdirSync(dir)
@@ -19,7 +20,6 @@ async function loadFile(file) {
 
 const svgDir = resolve(import.meta.dirname, "src/__tests__/fixture", "svg");
 const buffers = await Promise.all(filepaths(svgDir).map(loadFile));
-
 
 /**
  * Sorts the keys of an object recursively.
@@ -74,46 +74,42 @@ function sortObjectKeysRecursively<T>(obj: T): T {
       );
     },
   );
+
   generateLayout(
     {
       imgs: buffers,
       pixelRatio: ratio,
     },
-    (err, layout) => {
+    async (err, layout) => {
       if (err) throw err;
-      generateImage(layout, (err, image) => {
-        if (err) throw err;
-        writeFile(
-          resolve(import.meta.dirname, "src/__tests__/fixture", `sprite@${ratio}.png`),
-          image,
-          (err) => {
-            if (err) throw err;
-          },
-        );
-      });
-    },
-  );
-  
-  generateLayout(
-    {
-      imgs: buffers,
-      pixelRatio: ratio,
-    },
-    (err, layout) => {
-      if (err) throw err;
-      generateOptimizedImage(layout, {quality: 64}, (err, image) => {
-        if (err) throw err;
-        writeFile(
-          resolve(import.meta.dirname, "src/__tests__/fixture", `sprite@${ratio}-64colors.png`),
-          image,
-          (err) => {
-            if (err) throw err;
-          },
-        );
-      });
+      const image = await generateImage(layout);
+      writeFile(
+        resolve(import.meta.dirname, "src/__tests__/fixture", `sprite@${ratio}.png`),
+        image,
+        (err) => {
+          if (err) throw err;
+        },
+      );
     },
   );
 
+  generateLayout(
+    {
+      imgs: buffers,
+      pixelRatio: ratio,
+    },
+    async (err, layout) => {
+      if (err) throw err;
+      const image = await generateOptimizedImage(layout, { quality: 64 });
+      writeFile(
+        resolve(import.meta.dirname, "src/__tests__/fixture", `sprite@${ratio}-64colors.png`),
+        image,
+        (err) => {
+          if (err) throw err;
+        },
+      );
+    },
+  );
 
   generateLayoutUnique(
     {
@@ -133,23 +129,22 @@ function sortObjectKeysRecursively<T>(obj: T): T {
       );
     },
   );
+  
   generateLayoutUnique(
     {
       imgs: buffers,
       pixelRatio: ratio,
     },
-    (err, layout) => {
+    async (err, layout) => {
       if (err) throw err;
-      generateImage(layout, (err, image) => {
-        if (err) throw err;
-        writeFile(
-          resolve(import.meta.dirname, "src/__tests__/fixture", `sprite-uniq@${ratio}.png`),
-          image,
-          (err) => {
-            if (err) throw err;
-          },
-        );
-      });
+      const image = await generateImage(layout);
+      writeFile(
+        resolve(import.meta.dirname, "src/__tests__/fixture", `sprite-uniq@${ratio}.png`),
+        image,
+        (err) => {
+          if (err) throw err;
+        },
+      );
     },
   );
 });

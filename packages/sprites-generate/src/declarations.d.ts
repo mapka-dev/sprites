@@ -3,10 +3,19 @@
  * @see https://mapnik.org/documentation/node-mapnik/3.6/#blend
  */
 interface BlendOptions {
-  /** Image width in pixels */
+  /** 
+   * Output image format 
+   */
+  format?: "png" | "jpeg" | "webp";
+
+  /** 
+   * Image width in pixels 
+   */
   width?: number;
   
-  /** Image height in pixels */
+  /** 
+   * Image height in pixels 
+   */
   height?: number;
   
   /** 
@@ -37,14 +46,12 @@ interface BlendOptions {
 }
 
 declare module "@mapnik/mapnik" {
-  
     export class Image {
         constructor(width: number, height: number);
         width(): number;
         height(): number;
         encodeSync(format: string): Buffer;
     }
-
 
     export function blend(
       items: Buffer[], 
