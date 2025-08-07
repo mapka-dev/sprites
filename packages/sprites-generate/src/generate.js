@@ -1,4 +1,4 @@
-import mapnik from 'mapnik';
+import mapnik from '@mapnik/mapnik';
 import assert from 'assert';
 import ShelfPack from '@mapbox/shelf-pack';
 import queue from 'queue-async';
@@ -226,7 +226,7 @@ export function generateImage(layout, callback) {
  *
  * @param  {ImgLayout}   layout    An {@link ImgLayout} Object used to generate the image
  * @param  {Object}      [options]
- * @param  {Object[]}    [options.quality] Number of colors to crush the PNG to (using color quantization) (default 128)
+ * @param  {number}        [options.quality] Number of colors to crush the PNG to (using color quantization) (default 128)
  * @param  {Function}    callback  Accepts two arguments, `err` and `image` data
  */
 export function generateOptimizedImage(layout, options, callback) {

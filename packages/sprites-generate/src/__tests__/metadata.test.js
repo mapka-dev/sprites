@@ -5,7 +5,7 @@ import {validateMetadata} from '../validate.js';
 
 test('image without metadata', function() {
     extractMetadata({
-        svg: readFileSync(`${__dirname}/fixture/svg/aerialway-24.svg`, 'utf-8')
+        svg: readFileSync(`${import.meta.dirname}/fixture/svg/aerialway-24.svg`, 'utf-8')
     }, function(err, metadata) {
         expect(err).toBeNull();
         expect(metadata).toEqual({});
@@ -14,7 +14,7 @@ test('image without metadata', function() {
 
 test('image with nested metadata', () => {
     extractMetadata({
-        svg: readFileSync(`${__dirname}/fixture/svg-metadata/cn-nths-expy-2-affinity.svg`, 'utf-8')
+        svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/cn-nths-expy-2-affinity.svg`, 'utf-8')
     }, function(err, metadata) {
        expect(err).toBeNull();
        expect(metadata).toEqual({
@@ -27,7 +27,7 @@ test('image with nested metadata', () => {
 
 test('image exported by Illustrator', () => {
     extractMetadata({
-        svg: readFileSync(`${__dirname}/fixture/svg-metadata/shield-illustrator.svg`)
+        svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/shield-illustrator.svg`)
     }, function(err, metadata) {
         expect(err).toBeNull();
         expect(metadata).toEqual({
@@ -40,7 +40,7 @@ test('image exported by Illustrator', () => {
 
 test('image exported by Illustrator, rotated', () => {
     extractMetadata({
-        svg: readFileSync(`${__dirname}/fixture/svg-metadata/shield-illustrator-rotated.svg`)
+        svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/shield-illustrator-rotated.svg`)
     }, function(err, metadata) {
         expect(err).toBeNull();
         expect(metadata).toEqual({
@@ -53,7 +53,7 @@ test('image exported by Illustrator, rotated', () => {
 
 test('image exported by Illustrator, rotated + translated', () => {
     extractMetadata({
-        svg: readFileSync(`${__dirname}/fixture/svg-metadata/shield-illustrator-rotated-translated.svg`)
+        svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/shield-illustrator-rotated-translated.svg`)
     }, function(err, metadata) {
         expect(err).toBeNull();
         expect(metadata).toEqual({
@@ -66,7 +66,7 @@ test('image exported by Illustrator, rotated + translated', () => {
 
 test('image exported by Illustrator, rotated + reversed', () => {
     extractMetadata({
-        svg: readFileSync(`${__dirname}/fixture/svg-metadata/shield-illustrator-rotated-reversed.svg`)
+        svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/shield-illustrator-rotated-reversed.svg`)
     }, function(err, metadata) {
         expect(err).toBeNull();
         expect(metadata).toEqual({
@@ -79,7 +79,7 @@ test('image exported by Illustrator, rotated + reversed', () => {
 
 test('image with one stretch rect', () => {
     extractMetadata({
-        svg: readFileSync(`${__dirname}/fixture/svg-metadata/cn-nths-expy-2-inkscape-plain.svg`)
+        svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/cn-nths-expy-2-inkscape-plain.svg`)
     }, function(err, metadata) {
         expect(err).toBeNull();
         expect(metadata).toEqual({
@@ -91,7 +91,7 @@ test('image with one stretch rect', () => {
 
 test('image with multiple stretch zones', () => {
     extractMetadata({
-        svg: readFileSync(`${__dirname}/fixture/svg-metadata/ae-national-3-affinity.svg`)
+        svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/ae-national-3-affinity.svg`)
     }, function(err, metadata) {
         expect(err).toBeNull();
         expect(metadata).toEqual({
@@ -104,7 +104,7 @@ test('image with multiple stretch zones', () => {
 test('image with multiple stretch zones and higher pixelRatio', () => {
     extractMetadata({
         pixelRatio: 2,
-        svg: readFileSync(`${__dirname}/fixture/svg-metadata/ae-national-3-affinity.svg`)
+        svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/ae-national-3-affinity.svg`)
     }, function(err, metadata) {
         expect(err).toBeNull();
         expect(metadata).toEqual({

@@ -14,12 +14,11 @@
     "url": "https://github.com/mapka-dev/sprites.git"
   },
   "scripts": {
-    "fixtures": "node fixtures.js"
+    "fixtures": "node fixtures.ts"
   },
   "dependencies": {
     "@mapbox/shelf-pack": "~3.0.0",
-    "json-stable-stringify": "1.0.1",
-    "mapnik": "^4.4.0",
+    "@mapnik/mapnik": "^4.7.2",
     "queue-async": "^1.2.1",
     "svg-boundings": "^2.0.3",
     "svgo": "^2.8.0"

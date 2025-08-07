@@ -1,7 +1,7 @@
-import { resolvePluginConfig } from 'svgo/lib/svgo/config';
-import { parseSvg } from 'svgo/lib/parser';
-import { stringifySvg } from 'svgo/lib/stringifier';
-import { invokePlugins } from 'svgo/lib/svgo/plugins';
+import { resolvePluginConfig } from 'svgo/lib/svgo/config.js';
+import { parseSvg } from 'svgo/lib/parser.js';
+import { stringifySvg } from 'svgo/lib/stringifier.js';
+import { invokePlugins } from 'svgo/lib/svgo/plugins.js';
 import svgBoundings from 'svg-boundings';
 
 const computePathBounds = svgBoundings.path;

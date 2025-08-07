@@ -65,7 +65,7 @@ export function validateMetadata(img, metadata) {
             for (let i = 1; i < stretches.length; i++) {
                 // Make sure that the previous stretch's end coordinate is
                 // smaller than this stretch's begin coordinate. Expects that
-                // stretch zones are sorted ascendingly by their first coordinate.
+                // stretch zones are sorted ascending by their first coordinate.
                 if (stretches[i][0] <= stretches[i - 1][1]) {
                     return new Error(`image ${key} zones may not overlap`);
                 }

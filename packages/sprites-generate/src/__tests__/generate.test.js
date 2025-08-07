@@ -1,7 +1,7 @@
 import {describe, expect, test} from 'vitest';
 import {resolve, join, basename} from 'path';
 import {globSync, readFileSync} from 'fs';
-import mapnik from 'mapnik';
+import mapnik from '@mapnik/mapnik';
 import queue from 'queue-async';
 import {
     generateLayout, 
@@ -132,7 +132,7 @@ describe('generateImage', function() {
                         if(err) reject(err)
                         expect(res).toBeInstanceOf(Buffer, 'produces image');
                         
-                        expect(Math.abs(res.length - png.length)).toBeLessThan(2000);
+                        expect(Math.abs(res.length - png.length)).toBeLessThan(1000);
                         resolve();
                     });
                 });
@@ -165,8 +165,7 @@ describe('generateImage with format:true', function() {
                     if(err) reject(err)
                     expect(res).toBeInstanceOf(Buffer, 'produces image');
              
-                    // Increased the threshold to 9000, need to be investigated
-                    expect(Math.abs(res.length - png.length)).toBeLessThan(9000);
+                    expect(Math.abs(res.length - png.length)).toBeLessThan(1000);
                     resolve();
                 });
             });
