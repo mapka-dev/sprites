@@ -1,7 +1,8 @@
 import { defineProject } from "vitest/config";
 
 const projects = [
-  "sprites-generate"
+  "sprites-generate", 
+  "shelf-pack"
 ];
 
 export default defineProject({

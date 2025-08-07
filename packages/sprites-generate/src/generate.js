@@ -1,6 +1,6 @@
 import mapnik from '@mapnik/mapnik';
 import assert from 'assert';
-import ShelfPack from '@mapbox/shelf-pack';
+import ShelfPack from '@mapka/shelf-pack';
 import queue from 'queue-async';
 import {extractMetadata} from './metadata.js';
 

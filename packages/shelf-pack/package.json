@@ -1,7 +1,7 @@
 {
-  "name": "@mapka/sprites-generate",
+  "name": "@mapka/shelf-pack",
   "version": "0.3.0",
-  "description": "Generate sprites layout from individual svg icons",
+  "description": "A 2D rectangular bin packing data structure that uses the Shelf Best Height Fit heuristic.",
   "main": "./lib/index.js",
   "license": "ISC",
   "type": "module",
@@ -12,16 +12,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/mapka-dev/sprites.git"
-  },
-  "scripts": {
-    "fixtures": "node fixtures.ts"
-  },
-  "dependencies": {
-    "@mapka/shelf-pack": "^0.3.0",
-    "@mapnik/mapnik": "^4.7.2",
-    "queue-async": "^1.2.1",
-    "svg-boundings": "^2.0.3",
-    "svgo": "^2.8.0"
   },
   "devDependencies": {
     "@chyzwar/tsconfig": "^0.4.0",

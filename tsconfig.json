@@ -10,6 +10,7 @@
   },
   "include": [],
   "references": [
-    { "path": "./packages/sprites-generate" }
+    { "path": "./packages/sprites-generate" },
+    { "path": "./packages/shelf-pack" }
   ]
 }

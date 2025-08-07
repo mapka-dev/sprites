@@ -910,19 +910,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/shelf-pack@npm:~3.0.0":
-  version: 3.0.0
-  resolution: "@mapbox/shelf-pack@npm:3.0.0"
-  checksum: 10c2/c76223e0762338c579461f8e9198c3b58cbf92eb5ef827f8c7fc1f8e3dc2f87ba83305ed71e4407f4e0fb61b71e084ad0355b8a0a106d40172f3fd86b3cd4bfc
-  languageName: node
-  linkType: hard
+"@mapka/shelf-pack@npm:^0.3.0, @mapka/shelf-pack@workspace:packages/shelf-pack":
+  version: 0.0.0-use.local
+  resolution: "@mapka/shelf-pack@workspace:packages/shelf-pack"
+  dependencies:
+    "@chyzwar/tsconfig": "npm:^0.4.0"
+    "@types/node": "npm:^24.2.0"
+    typescript: "npm:^5.9.2"
+    vite: "npm:^7.0.6"
+    vitest: "npm:^3.2.4"
+  languageName: unknown
+  linkType: soft
 
 "@mapka/sprites-generate@npm:^0.3.0, @mapka/sprites-generate@workspace:packages/sprites-generate":
   version: 0.0.0-use.local
   resolution: "@mapka/sprites-generate@workspace:packages/sprites-generate"
   dependencies:
     "@chyzwar/tsconfig": "npm:^0.4.0"
-    "@mapbox/shelf-pack": "npm:~3.0.0"
+    "@mapka/shelf-pack": "npm:^0.3.0"
     "@mapnik/mapnik": "npm:^4.7.2"
     "@types/node": "npm:^24.2.0"
     queue-async: "npm:^1.2.1"
