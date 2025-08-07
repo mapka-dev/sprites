@@ -20,7 +20,7 @@ function heightAscThanNameComparator(a, b) {
  * @param   {Object[]}              [options.imgs]                 Array of `{ svg: Buffer, id: String }`
  * @param   {number}                [options.pixelRatio]           Ratio of a 72dpi screen pixel to the destination pixel density
  * @param   {boolean}               [options.format]               If true, generate {@link DataLayout}; if false, generate {@link ImgLayout}
- * @param   {boolean}               [options.maxIconSize]          optional, overrides the max_size in mapnik
+ * @param   {number}               [options.maxIconSize]          optional, overrides the max_size in mapnik
  * @param   {boolean}               [options.removeOversizedIcons] optional, if set, filters out icons that mapnik says are too big
  * @param   {boolean}               [options.extractMetadata]      optional, defaults to true; if set to false, omits stretch and placeholder metadata (`content`, `stretchX`, `stretchY`, `placeholder`) in {@link DataLayout}
  * @param   {Function}              callback                       Accepts two arguments, `err` and `layout` Object
@@ -47,7 +47,7 @@ export function generateLayout(options, callback) {
  * @param   {Object[]}              [options.imgs]                 Array of `{ svg: Buffer, id: String }`
  * @param   {number}                [options.pixelRatio]           Ratio of a 72dpi screen pixel to the destination pixel density
  * @param   {boolean}               [options.format]               If true, generate {@link DataLayout} as first argument to callback and {@link ImgLayout} as the second argument; if false, generate only {@link ImgLayout} as the first argument to the callback function
- * @param   {boolean}               [options.maxIconSize]          optional, overrides the max_size in mapnik
+ * @param   {number}               [options.maxIconSize]          optional, overrides the max_size in mapnik
  * @param   {boolean}               [options.removeOversizedIcons] optional, if set, filters out icons that mapnik says are too big
  * @param   {boolean}               [options.extractMetadata]      optional, defaults to true; if set to false, omits stretch and placeholder metadata (`content`, `stretchX`, `stretchY`, `placeholder`) in {@link DataLayout}
  * @param   {Function}              callback                       Accepts two arguments, `err` and `layout` Object
@@ -215,6 +215,7 @@ function generateLayoutInternal(options, callback) {
 export function generateImage(layout, callback) {
     assert(typeof layout === 'object' && typeof callback === 'function');
     if (!layout.items.length) return callback(null, emptyPNG);
+    
     mapnik.blend(layout.items, {
         width: layout.width,
         height: layout.height

@@ -1,11 +1,21 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: nature of this validate function */
+
+export interface Metadata {
+    content?: [number, number, number, number];
+    stretchX?: [number, number][];
+    stretchY?: [number, number][];
+} 
+
+export interface Image {
+    width?: number;
+    height?: number;
+}
+
 /**
  * Validates metadata that is parsed from an SVG metadata
- *
- * @param   {Object}                img              An image object with `width` and `height`.
- * @param   {Metadata}              metadata         A metadata object.
- * @return  {null|Error}            err              An `Error` object if validation fails, `null` otherwise.
+ * @return {Error} if metadata is invalid
  */
-export function validateMetadata(img, metadata) {
+export function validateMetadata(img?: any, metadata?: any) {
     if (!img || typeof img !== 'object') {
         return new Error('image is invalid');
     }
@@ -21,6 +31,7 @@ export function validateMetadata(img, metadata) {
     if (typeof img.height !== 'number' || img.height <= 0) {
         return new Error('image has invalid height');
     }
+ 
 
     if ('content' in metadata) {
         const content = metadata.content;
@@ -40,7 +51,7 @@ export function validateMetadata(img, metadata) {
         }
     }
 
-    for (const key of ['stretchX', 'stretchY']) {
+    for (const key of ['stretchX', 'stretchY'] as const) {
         if (key in metadata) {
             const stretches = metadata[key];
             if (!Array.isArray(stretches)) {

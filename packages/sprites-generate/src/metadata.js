@@ -178,7 +178,7 @@ export function extractMetadata(img, callback) {
             return callback(err);
         }
 
-        // Sort stretches ascendingly.
+        // Sort stretches ascending.
         for (const key of ['stretchX', 'stretchY']) {
             if (info.metadata[key]) {
                 info.metadata[key].sort((a, b) => a[0] - b[0]);
@@ -191,20 +191,3 @@ export function extractMetadata(img, callback) {
     }
 }
 
-
-/**
- * A `Metadata` objects stores information about how an image can be stretched in a non-linear
- *
- * The keys of the Object are the icon ids.
- * The values of the Object are the structured data about each icon.
- *
- * @typedef  {Object}    Metadata
- * @example
- * {
-    *    {
-    *      "content": [ 2, 5, 18, 11 ],
-    *      "stretchX": [ [3, 7], [14, 18] ],
-    *      "stretchY": [ [ 5, 11 ] ]
-    *    }
-    * }
-    */
