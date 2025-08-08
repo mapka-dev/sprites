@@ -1,6 +1,6 @@
 {
   "name": "@mapka/sprites-generate",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Generate sprites layout from individual svg icons",
   "main": "./lib/index.js",
   "license": "ISC",
@@ -17,7 +17,7 @@
     "fixtures": "node fixtures.ts"
   },
   "dependencies": {
-    "@mapka/shelf-pack": "^0.3.0",
+    "@mapka/shelf-pack": "^0.4.0",
     "@mapnik/mapnik": "^4.7.3",
     "svg-boundings": "^2.0.8",
     "svgo": "^2.8.0"
