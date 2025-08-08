@@ -51,7 +51,13 @@ declare module "@mapnik/mapnik" {
       width(): number;
       height(): number;
       encodeSync(format: string): Buffer;
-      static fromSVGBytes(svg: Buffer, options: any, callback: (err: Error | null, image: Image) => void);
+      static fromSVGBytes(
+        svg: Buffer, 
+        options: {
+          max_size?: number; 
+          scale?: number
+        }, callback: (err: Error | null, image: Image) => void
+      );
     }
 
     /**

@@ -930,7 +930,6 @@ __metadata:
     "@mapka/shelf-pack": "npm:^0.3.0"
     "@mapnik/mapnik": "npm:^4.7.2"
     "@types/node": "npm:^24.2.0"
-    queue-async: "npm:^1.2.1"
     svg-boundings: "npm:^2.0.3"
     svgo: "npm:^2.8.0"
     typescript: "npm:^5.9.2"
@@ -4815,13 +4814,6 @@ __metadata:
     end-of-stream: "npm:^1.1.0"
     once: "npm:^1.3.1"
   checksum: 10c2/1f20f83898cd8dddde5a969ed1815ce3fbd5cc76de02f3c64a375a1a9e280c79d51093fac91186ae8731b38d7607e9c1076c182c1ab57e14bde73154c99aeefe
-  languageName: node
-  linkType: hard
-
-"queue-async@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "queue-async@npm:1.2.1"
-  checksum: 10c2/4d89d3d8b6432889bd53a5f89ca94c3029c58dbeaa9ec2b471b539a00d8cb46fa2fb8cb5339d570f1d8b1d695a524df0d5f65efa5927d8abdb1a4c701944c9d7
   languageName: node
   linkType: hard
 
