@@ -15,11 +15,12 @@
     "fixtures": "node fixtures.ts"
   },
   "dependencies": {
-    "@mapka/sprites-generate": "^0.3.0",
-    "@mapbox/spritezero": "^8.0.3"
+    "@mapbox/spritezero": "^8.0.3",
+    "@mapka/sprites-generate": "^0.3.0"
   },
   "devDependencies": {
     "@chyzwar/tsconfig": "^0.4.0",
+    "@types/mapbox__spritezero": "^6.3.5",
     "@types/node": "^24.2.1",
     "typescript": "^5.9.2",
     "vite": "^7.1.1",
