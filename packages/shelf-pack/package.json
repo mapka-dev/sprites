@@ -1,0 +1,30 @@
+{
+  "name": "@mapka/shelf-pack",
+  "version": "0.3.0",
+  "description": "A 2D rectangular bin packing data structure that uses the Shelf Best Height Fit heuristic.",
+  "main": "./lib/index.js",
+  "license": "ISC",
+  "type": "module",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mapka-dev/sprites.git"
+  },
+  "devDependencies": {
+    "@chyzwar/tsconfig": "^0.4.0",
+    "@types/node": "^24.2.1",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.1",
+    "vitest": "^3.2.4"
+  },
+  "files": [
+    "src/",
+    "lib/",
+    "LICENSE",
+    "!**/__tests__/",
+    "!lib/buildInfo.json"
+  ]
+}
