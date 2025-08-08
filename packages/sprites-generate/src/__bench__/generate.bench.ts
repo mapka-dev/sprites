@@ -14,42 +14,17 @@ function getFixtures() {
 
 bench("generateLayout bench (concurrency=1,x20)", async () => {
   for (let i = 0; i < 20; i++) {
-    await new Promise<void>((resolve, reject) => {
-      generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }, (err?: Error) => {
-        if (err) reject(err);
-        resolve();
-      });
-    });
+    await generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false });
   }
 });
 
 bench("generateLayout bench (concurrency=4,x20)", async () => {
   for (let i = 0; i < 20; i += 4) {
     await Promise.all([
-      new Promise<void>((resolve, reject) => {
-        generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }, (err?: Error) => {
-          if (err) reject(err);
-          resolve();
-        });
-      }),
-      new Promise<void>((resolve, reject) => {
-        generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }, (err?: Error) => {
-          if (err) reject(err);
-          resolve();
-        });
-      }),
-      new Promise<void>((resolve, reject) => {
-        generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }, (err?: Error) => {
-          if (err) reject(err);
-          resolve();
-        });
-      }),
-           new Promise<void>((resolve, reject) => {
-        generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }, (err?: Error) => {
-          if (err) reject(err);
-          resolve();
-        });
-      }),
+      generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }),
+      generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }),  
+      generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }),
+      generateLayout({ imgs: getFixtures(), pixelRatio: 1, format: false }),
     ]);
   }
 });

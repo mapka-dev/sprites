@@ -47,14 +47,18 @@ interface BlendOptions {
 
 declare module "@mapnik/mapnik" {
     export class Image {
-        constructor(width: number, height: number);
-        width(): number;
-        height(): number;
-        encodeSync(format: string): Buffer;
+      constructor(width: number, height: number);
+      width(): number;
+      height(): number;
+      encodeSync(format: string): Buffer;
+      static fromSVGBytes(svg: Buffer, options: any, callback: (err: Error | null, image: Image) => void);
     }
 
+    /**
+     * @see https://mapnik.org/documentation/node-mapnik/3.6/#blend
+     */ 
     export function blend(
-      items: Buffer[], 
+      items: Buffer[] | {buffer: Image}[],
       options: BlendOptions, 
       callback: (err: Error | null, image: Buffer) => void
     );

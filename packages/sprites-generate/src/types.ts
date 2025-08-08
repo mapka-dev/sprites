@@ -1,4 +1,23 @@
+import type { Image } from "@mapnik/mapnik";
+import type { Metadata } from "./validate.js";
 
+export interface SvgImage {
+  svg: Buffer;
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  buffer: Image;
+}
+
+export interface DataSvgImage extends Metadata {
+  svg: Buffer;
+  id: string;
+  width: number;
+  height: number;
+  buffer: Image;
+}
 
 export interface DataLayout {
   [key: string]: {
@@ -17,7 +36,5 @@ export interface DataLayout {
 export interface ImgLayout {
   width: number;
   height: number;
-  items: Buffer[]
+  items: SvgImage[];
 }
-
-

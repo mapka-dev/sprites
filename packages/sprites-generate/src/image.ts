@@ -6,7 +6,6 @@ const emptyPNG = new mapnik.Image(1, 1).encodeSync("png");
 
 /**
  * Generate a PNG image with positioned icons on a sprite.
- *
  */
 export function generateImage(layout: ImgLayout): Promise<Buffer> {
   if (typeof layout !== "object") {

@@ -1,6 +1,9 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: nature of this validate function */
 
 export interface Metadata {
+    x: number;
+    y: number;
+    placeholder?: [number, number, number, number];
     content?: [number, number, number, number];
     stretchX?: [number, number][];
     stretchY?: [number, number][];

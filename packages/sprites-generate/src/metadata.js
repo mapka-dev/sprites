@@ -146,7 +146,7 @@ const extractPluginsConfig = [
  * @param   {Function}              callback              Accepts two arguments, `err` and `metadata` Object
  * @return  {Metadata}              metadata              An object with the extracted information.
  */
-export function extractMetadata(img, callback) {
+export function extractSvgMetadata(img, callback) {
     try {
         const imgSvg = Buffer.isBuffer(img.svg) ? img.svg.toString('utf-8') : img.svg;
 

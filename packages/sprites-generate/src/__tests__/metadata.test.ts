@@ -1,10 +1,10 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, test } from "vitest";
-import { extractMetadata } from "../metadata.js";
+import { extractSvgMetadata } from "../metadata.js";
 import { type Metadata, validateMetadata } from "../validate.js";
 
 test("image without metadata", () => {
-  extractMetadata(
+  extractSvgMetadata(
     {
       svg: readFileSync(`${import.meta.dirname}/fixture/svg/aerialway-24.svg`, "utf-8"),
     },
@@ -16,7 +16,7 @@ test("image without metadata", () => {
 });
 
 test("image with nested metadata", () => {
-  extractMetadata(
+  extractSvgMetadata(
     {
       svg: readFileSync(
         `${import.meta.dirname}/fixture/svg-metadata/cn-nths-expy-2-affinity.svg`,
@@ -35,7 +35,7 @@ test("image with nested metadata", () => {
 });
 
 test("image exported by Illustrator", () => {
-  extractMetadata(
+  extractSvgMetadata(
     {
       svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/shield-illustrator.svg`),
     },
@@ -51,7 +51,7 @@ test("image exported by Illustrator", () => {
 });
 
 test("image exported by Illustrator, rotated", () => {
-  extractMetadata(
+  extractSvgMetadata(
     {
       svg: readFileSync(
         `${import.meta.dirname}/fixture/svg-metadata/shield-illustrator-rotated.svg`,
@@ -69,7 +69,7 @@ test("image exported by Illustrator, rotated", () => {
 });
 
 test("image exported by Illustrator, rotated + translated", () => {
-  extractMetadata(
+  extractSvgMetadata(
     {
       svg: readFileSync(
         `${import.meta.dirname}/fixture/svg-metadata/shield-illustrator-rotated-translated.svg`,
@@ -87,7 +87,7 @@ test("image exported by Illustrator, rotated + translated", () => {
 });
 
 test("image exported by Illustrator, rotated + reversed", () => {
-  extractMetadata(
+  extractSvgMetadata(
     {
       svg: readFileSync(
         `${import.meta.dirname}/fixture/svg-metadata/shield-illustrator-rotated-reversed.svg`,
@@ -105,7 +105,7 @@ test("image exported by Illustrator, rotated + reversed", () => {
 });
 
 test("image with one stretch rect", () => {
-  extractMetadata(
+  extractSvgMetadata(
     {
       svg: readFileSync(
         `${import.meta.dirname}/fixture/svg-metadata/cn-nths-expy-2-inkscape-plain.svg`,
@@ -122,7 +122,7 @@ test("image with one stretch rect", () => {
 });
 
 test("image with multiple stretch zones", () => {
-  extractMetadata(
+  extractSvgMetadata(
     {
       svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/ae-national-3-affinity.svg`),
     },
@@ -140,7 +140,7 @@ test("image with multiple stretch zones", () => {
 });
 
 test("image with multiple stretch zones and higher pixelRatio", () => {
-  extractMetadata(
+  extractSvgMetadata(
     {
       pixelRatio: 2,
       svg: readFileSync(`${import.meta.dirname}/fixture/svg-metadata/ae-national-3-affinity.svg`),
@@ -159,14 +159,14 @@ test("image with multiple stretch zones and higher pixelRatio", () => {
 });
 
 test("invalid svg", () => {
-  extractMetadata({ svg: "<svg>" }, (err: Error) => {
+  extractSvgMetadata({ svg: "<svg>" }, (err: Error) => {
     expect(err).toMatchObject({ message: "<input>:1:5: Unclosed root tag" });
   });
 });
 
 describe("invalid images", () => {
   test("content area without height", () => {
-    extractMetadata(
+    extractSvgMetadata(
       { svg: '<svg><rect id="mapbox-icon-content" x="0" y="0" width="30"/></svg>' },
       (err?: Error, metadata?: Metadata) => {
         expect(err).toBeNull();
@@ -176,7 +176,7 @@ describe("invalid images", () => {
   });
 
   test("invalid mapbox-icon-* ID", () => {
-    extractMetadata(
+    extractSvgMetadata(
       { svg: '<svg><rect id="mapbox-icon-none" x="0" width="30" height="20"/></svg>' },
       (err?: Error, metadata?: Metadata) => {
         expect(err).toBeNull();
@@ -186,14 +186,14 @@ describe("invalid images", () => {
   });
 
   test("no path data", () => {
-    extractMetadata({ svg: '<svg><path id="mapbox-icon-content"/></svg>' }, (err?: Error, metadata?: Metadata) => {
+    extractSvgMetadata({ svg: '<svg><path id="mapbox-icon-content"/></svg>' }, (err?: Error, metadata?: Metadata) => {
       expect(err).toBeNull();
       expect(metadata).toEqual({});
     });
   });
 
   test("invalid path data", () => {
-    extractMetadata(
+    extractSvgMetadata(
       { svg: '<svg><path id="mapbox-icon-content" d="hello"/></svg>' },
       (err?: Error, metadata?: Metadata) => {
         expect(err).toBeNull();

@@ -32,8 +32,10 @@ function ShelfPack(w, h, options) {
  * Batch pack multiple bins into the sprite.
  *
  * @param   {Object[]} bins       Array of requested bins - each object should have `width`, `height` (or `w`, `h`) properties
- * @param   {number}   bins[].w   Requested bin width
- * @param   {number}   bins[].h   Requested bin height
+ * @param   {number}   [bins[].w]         Requested bin width
+ * @param   {number}   [bins[].h]         Requested bin height
+ * @param   {number}   [bins[].width]   Requested bin width
+ * @param   {number}   [bins[].height]    Requested bin height
  * @param   {Object}   [options]
  * @param   {boolean}  [options.inPlace=false] If `true`, the supplied bin objects will be updated inplace with `x` and `y` properties
  * @returns {Bin[]}    Array of allocated Bins - each Bin is an object with `id`, `x`, `y`, `w`, `h` properties

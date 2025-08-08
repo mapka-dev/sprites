@@ -6,9 +6,9 @@ describe("ShelfPack", () => {
     test("batch pack() allocates same height bins on existing shelf", () => {
       const sprite = new ShelfPack(64, 64),
         bins = [
-          { id: "a", w: 10, h: 10 },
-          { id: "b", w: 10, h: 10 },
-          { id: "c", w: 10, h: 10 },
+          { id: 'a', width: 10, height: 10 },
+          { id: 'b', width: 10, height: 15 },
+          { id: 'c', width: 10, height: 20 }
         ],
         expectedResults = [
           { id: "a", x: 0, y: 0, w: 10, h: 10, maxw: 10, maxh: 10, refcount: 1 },
