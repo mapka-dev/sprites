@@ -1,8 +1,12 @@
 # Change Log
-## Mapka font stack
+## Mapka sprites stack
 
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.4.1](https://github.com/mapka-dev/sprites/compare/v0.4.0...v0.4.1) (2025-08-08)
+
+**Note:** Version bump only for package @mapka/sprites-benchmarks
 
 ## 0.4.0 (2025-08-08)
 

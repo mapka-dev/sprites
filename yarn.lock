@@ -950,7 +950,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapka/shelf-pack@npm:^0.4.0, @mapka/shelf-pack@workspace:packages/shelf-pack":
+"@mapka/shelf-pack@npm:^0.4.1, @mapka/shelf-pack@workspace:packages/shelf-pack":
   version: 0.0.0-use.local
   resolution: "@mapka/shelf-pack@workspace:packages/shelf-pack"
   dependencies:
@@ -968,7 +968,7 @@ __metadata:
   dependencies:
     "@chyzwar/tsconfig": "npm:^0.4.0"
     "@mapbox/spritezero": "npm:^8.0.3"
-    "@mapka/sprites-generate": "npm:^0.4.0"
+    "@mapka/sprites-generate": "npm:^0.4.1"
     "@types/mapbox__spritezero": "npm:^6.3.5"
     "@types/node": "npm:^24.2.1"
     typescript: "npm:^5.9.2"
@@ -977,12 +977,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mapka/sprites-generate@npm:^0.4.0, @mapka/sprites-generate@workspace:packages/sprites-generate":
+"@mapka/sprites-generate@npm:^0.4.1, @mapka/sprites-generate@workspace:packages/sprites-generate":
   version: 0.0.0-use.local
   resolution: "@mapka/sprites-generate@workspace:packages/sprites-generate"
   dependencies:
     "@chyzwar/tsconfig": "npm:^0.4.0"
-    "@mapka/shelf-pack": "npm:^0.4.0"
+    "@mapka/shelf-pack": "npm:^0.4.1"
     "@mapnik/mapnik": "npm:^4.7.3"
     "@types/node": "npm:^24.2.1"
     svg-boundings: "npm:^2.0.8"
