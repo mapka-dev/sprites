@@ -52,6 +52,7 @@ function ShelfPack(w, h, options) {
  * @param   {Object}   [options]
  * @param   {boolean}  [options.inPlace=false] If `true`, the supplied bin objects will be updated inplace with `x` and `y` properties
  * @returns {Bin[]}    Array of allocated Bins - each Bin is an object with `id`, `x`, `y`, `w`, `h` properties
+ * @noto Mutate input bins
  * @example
  * var bins = [
  *     { id: 1, w: 12, h: 12 },
