@@ -16,6 +16,7 @@ export interface Image {
 
 /**
  * Validates metadata that is parsed from an SVG metadata
+ * 
  * @return {Error} if metadata is invalid
  */
 export function validateMetadata(img?: any, metadata?: any) {
