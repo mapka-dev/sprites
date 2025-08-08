@@ -80,15 +80,3 @@ jobs:
         yarn lerna publish from-git \
           --loglevel debug \
           --yes
-          
-    - name: Upload fonts to mapka
-      working-directory: packages/fonts
-      run: |
-        echo "MAPKA_DEV_API_URL=${{ secrets.MAPKA_DEV_API_URL }}" >> .env
-        echo "MAPKA_DEV_API_KEY=${{ secrets.MAPKA_DEV_API_KEY }}" >> .env
-
-        echo "MAPKA_PROD_API_URL=${{ secrets.MAPKA_PROD_API_URL }}" >> .env
-        echo "MAPKA_PROD_API_KEY=${{ secrets.MAPKA_PROD_API_KEY }}" >> .env
-
-        echo "Upload fonts to mapka"
-        yarn upload

@@ -2,6 +2,7 @@ import { defineProject } from "vitest/config";
 
 const projects = [
   "sprites-generate", 
+  "sprites-benchmarks",
   "shelf-pack"
 ];
 

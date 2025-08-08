@@ -1,14 +1,12 @@
 {
-  "name": "@mapka/sprites-generate",
+  "name": "@mapka/sprites-benchmarks",
   "version": "0.3.0",
-  "description": "Generate sprites layout from individual svg icons",
+  "description": "Size and performance benchmarks for sprites generation",
   "main": "./lib/index.js",
   "license": "ISC",
   "type": "module",
   "sideEffects": false,
-  "publishConfig": {
-    "access": "public"
-  },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/mapka-dev/sprites.git"
@@ -17,10 +15,8 @@
     "fixtures": "node fixtures.ts"
   },
   "dependencies": {
-    "@mapka/shelf-pack": "^0.3.0",
-    "@mapnik/mapnik": "^4.7.3",
-    "svg-boundings": "^2.0.8",
-    "svgo": "^2.8.0"
+    "@mapka/sprites-generate": "^0.3.0",
+    "@mapbox/spritezero": "^8.0.3"
   },
   "devDependencies": {
     "@chyzwar/tsconfig": "^0.4.0",
