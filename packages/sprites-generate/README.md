@@ -8,7 +8,7 @@ Alternatively you can use [spreet](https://github.com/flother/spreet) library wh
 
 ```ts
 import { readFileSync, writeFileSync } from 'node:fs';
-import { generateLayout } from '@mapka/sprites-generate';
+import { generateLayout, generateImage } from '@mapka/sprites-generate';
 
 const layout = await generateLayout({
   imgs: [

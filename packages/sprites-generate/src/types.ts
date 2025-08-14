@@ -14,6 +14,8 @@ export interface SvgImage {
 export interface DataSvgImage extends Metadata {
   svg: Buffer;
   id: string;
+  x: number;
+  y: number;
   width: number;
   height: number;
   buffer: Image;
