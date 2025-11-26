@@ -40,5 +40,14 @@
     "lint-staged": "^16.1.5",
     "typescript": "^5.9.2",
     "vitest": "3.2.4"
-  }
+  },
+  "dependenciesMeta": {
+    "@mapnik/mapnik": {
+      "built": true
+    },
+    "esbuild": {
+      "built": true
+    }
+  },
+  "packageManager": "yarn@4.12.0"
 }

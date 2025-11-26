@@ -1011,6 +1011,11 @@ __metadata:
     lint-staged: "npm:^16.1.5"
     typescript: "npm:^5.9.2"
     vitest: "npm:3.2.4"
+  dependenciesMeta:
+    "@mapnik/mapnik":
+      built: true
+    esbuild:
+      built: true
   languageName: unknown
   linkType: soft
 
@@ -6043,11 +6048,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A^5.9.2#optional!builtin<compat/typescript>":
   version: 5.9.2
-  resolution: "typescript@patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=cef18b"
+  resolution: "typescript@patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c2/f6c67cef185e7483e7d0b382a2f0bfe389ac862b01ae80e7e5fa7fa952cdfc42eddc37575ea020041f9bf1d566355a37687ead95203b2c7558cd2d1402f553a7
+  checksum: 10c2/2458fbbbeb070552e3396ac5065f61855bac58a36fa53df645b4169bb68e705a01d0866803bd5ca644e6d597fd99253c467ad186c5e079d3649051368b665009
   languageName: node
   linkType: hard
 
