@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2](https://github.com/mapka-dev/sprites/compare/v0.4.1...v0.4.2) (2025-11-26)
+
+### Features
+
+* supply chain protection ([57b5ee6](https://github.com/mapka-dev/sprites/commit/57b5ee6f0f87626fe03e5f2312241de2946321f3)) - by @chyzwar
+
 ## [0.4.1](https://github.com/mapka-dev/sprites/compare/v0.4.0...v0.4.1) (2025-08-08)
 
 **Note:** Version bump only for package @mapka/sprites-root

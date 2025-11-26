@@ -1,6 +1,6 @@
 {
   "name": "@mapka/sprites-generate",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Generate sprites layout from individual svg icons",
   "main": "./lib/index.js",
   "license": "ISC",

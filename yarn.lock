@@ -968,7 +968,7 @@ __metadata:
   dependencies:
     "@chyzwar/tsconfig": "npm:^0.4.0"
     "@mapbox/spritezero": "npm:^8.0.3"
-    "@mapka/sprites-generate": "npm:^0.4.1"
+    "@mapka/sprites-generate": "npm:^0.4.2"
     "@types/mapbox__spritezero": "npm:^6.3.5"
     "@types/node": "npm:^24.2.1"
     typescript: "npm:^5.9.2"
@@ -977,7 +977,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mapka/sprites-generate@npm:^0.4.1, @mapka/sprites-generate@workspace:packages/sprites-generate":
+"@mapka/sprites-generate@npm:^0.4.2, @mapka/sprites-generate@workspace:packages/sprites-generate":
   version: 0.0.0-use.local
   resolution: "@mapka/sprites-generate@workspace:packages/sprites-generate"
   dependencies:

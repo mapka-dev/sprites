@@ -1,6 +1,6 @@
 {
   "name": "@mapka/sprites-benchmarks",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Size and performance benchmarks for sprites generation",
   "main": "./lib/index.js",
   "license": "ISC",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@mapbox/spritezero": "^8.0.3",
-    "@mapka/sprites-generate": "^0.4.1"
+    "@mapka/sprites-generate": "^0.4.2"
   },
   "devDependencies": {
     "@chyzwar/tsconfig": "^0.4.0",
