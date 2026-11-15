@@ -1,4 +1,4 @@
-import { defineProject } from "vitest/config";
+import { defineConfig } from "vitest/config";
 
 const projects = [
   "sprites-generate", 
@@ -6,7 +6,7 @@ const projects = [
   "shelf-pack"
 ];
 
-export default defineProject({
+export default defineConfig({
   test: {
     projects: projects.map((name) => {
       return {
@@ -18,6 +18,9 @@ export default defineProject({
             "src/**/*.test.ts",
             "src/**/*.test.tsx",
           ],
+          benchmark: {
+            include: ["src/**/*.bench.ts"],
+          },
         },
       };
     }),
