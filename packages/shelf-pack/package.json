@@ -1,6 +1,6 @@
 {
   "name": "@mapka/shelf-pack",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "description": "A 2D rectangular bin packing data structure that uses the Shelf Best Height Fit heuristic.",
   "main": "./lib/index.js",
   "license": "ISC",
