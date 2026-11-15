@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 8
+  version: 10
   cacheKey: 10c2
 
 "@ampproject/remapping@npm:^2.3.0":
@@ -929,7 +929,7 @@ __metadata:
   resolution: "@mapka/shelf-pack@workspace:packages/shelf-pack"
   dependencies:
     "@chyzwar/tsconfig": "npm:^0.4.0"
-    "@types/node": "npm:^24.2.1"
+    "@types/node": "npm:^26.6.6"
     typescript: "npm:^5.9.2"
     vite: "npm:^7.1.1"
     vitest: "npm:^3.2.4"
@@ -944,7 +944,7 @@ __metadata:
     "@mapbox/spritezero": "npm:^8.0.3"
     "@mapka/sprites-generate": "npm:^0.4.2"
     "@types/mapbox__spritezero": "npm:^6.3.5"
-    "@types/node": "npm:^24.2.1"
+    "@types/node": "npm:^26.6.6"
     typescript: "npm:^5.9.2"
     vite: "npm:^7.1.1"
     vitest: "npm:^3.2.4"
@@ -958,7 +958,7 @@ __metadata:
     "@chyzwar/tsconfig": "npm:^0.4.0"
     "@mapka/shelf-pack": "npm:^0.4.1"
     "@mapnik/mapnik": "npm:^4.7.3"
-    "@types/node": "npm:^24.2.1"
+    "@types/node": "npm:^26.6.6"
     svg-boundings: "npm:^2.0.8"
     svgo: "npm:^2.8.0"
     typescript: "npm:^5.9.2"
@@ -978,7 +978,7 @@ __metadata:
     "@lerna-lite/cli": "npm:^5.6.3"
     "@lerna-lite/publish": "npm:^5.6.3"
     "@lerna-lite/version": "npm:^5.6.3"
-    "@types/node": "npm:^24.2.1"
+    "@types/node": "npm:^26.6.6"
     "@vitest/coverage-v8": "npm:^3.2.4"
     conventional-changelog-conventionalcommits: "npm:^9.1.0"
     husky: "npm:^9.1.7"
@@ -1875,12 +1875,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^24.2.1":
+"@types/node@npm:*":
   version: 24.2.1
   resolution: "@types/node@npm:24.2.1"
   dependencies:
     undici-types: "npm:~7.10.0"
   checksum: 10c2/44e62e0dc8b89cacbc2aa9b54688241b0474ec3ef2f9872816e3aa5fc66b125a57329b09e61abd1d459521662f57137c5a21570adecde53a95bf6ed0a6fc69ff
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^26.6.6":
+  version: 26.6.6
+  resolution: "@types/node@npm:26.6.6"
+  dependencies:
+    undici-types: "npm:~8.9.0"
+  checksum: 10c2/7e461c0728e0bead1b3735268f668fe48530b244165d6fd6cadc2103c5a3b306e4cc227b00809be2a851293b056c73129334b7f2d5895e7117287f6643097d45
   languageName: node
   linkType: hard
 
@@ -6238,6 +6247,13 @@ __metadata:
   version: 7.10.0
   resolution: "undici-types@npm:7.10.0"
   checksum: 10c2/48d0335f8e2b5f9d2d1243a92fb4266c80f860a2976a9b6741ab951cea242c7e9e968b94b9380d7b3d38d59a6bef8cc1a7f3790b6d8da9ae4b09124f6674aee9
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~8.9.0":
+  version: 8.9.0
+  resolution: "undici-types@npm:8.9.0"
+  checksum: 10c2/4c90ccb38e36c46e971ffb816f5e1e9611f176d760f6e34e3c858e365b461ce63eb1e7ad2654ed1ceda00c185453bc16214479254683b7688f6e547f12311384
   languageName: node
   linkType: hard
 
