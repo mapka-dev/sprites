@@ -1,6 +1,5 @@
 import { globSync, readFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
-import { describe } from "node:test";
 import {
   type DataLayout,
   type ImgLayout,
@@ -11,8 +10,7 @@ import {
   generateImage as mapkaGenerateImage,
   generateLayout as mapkaGenerateLayout,
 } from "@mapka/sprites-generate";
-
-import { bench } from "vitest";
+import { test } from "vitest";
 
 console.log(
   resolve(join(import.meta.dirname, "../../../sprites-generate/src/__tests__/fixture/svg/*.svg")),
@@ -25,37 +23,40 @@ const fixtures = globSync(
   id: basename(im).replace(".svg", ""),
 }));
 
-describe("scale 1x", () => {
-  bench("generate sprite @mapka/sprites-generate", async () => {
-    const layout = await mapkaGenerateLayout({
-      imgs: fixtures,
-      pixelRatio: 1,
-      format: false,
-    });
+test("scale 1x", async ({ bench }) => {
+  await bench.compare(
+    bench("generate sprite @mapka/sprites-generate", async () => {
+      const layout = await mapkaGenerateLayout({
+        imgs: fixtures,
+        pixelRatio: 1,
+        format: false,
+      });
 
-    await mapkaGenerateImage(layout);
-  });
-
-  bench("generate sprite @mapka/sprites-generate", async () => {
-    await new Promise((resolve) => {
-      mapboxGenerateLayout(
-        {
-          imgs: fixtures,
-          pixelRatio: 2,
-          format: false,
-        },
-        (err?: Error | null, layout?: ImgLayout | DataLayout) => {
-          if (err || !layout) {
-            throw err;
-          }
-          mapboxGenerateImage(layout as ImgLayout, (err?: Error | null, image?: Buffer) => {
-            if (err) {
-              throw err;
+      await mapkaGenerateImage(layout);
+    }),
+    bench("generate sprite @mapbox/spritezero", async () => {
+      await new Promise((resolve, reject) => {
+        mapboxGenerateLayout(
+          {
+            imgs: fixtures,
+            pixelRatio: 1,
+            format: false,
+          },
+          (err?: Error | null, layout?: ImgLayout | DataLayout) => {
+            if (err || !layout) {
+              reject(err ?? new Error("spritezero returned no layout"));
+              return;
             }
-            resolve(image);
-          });
-        },
-      );
-    });
-  });
+            mapboxGenerateImage(layout as ImgLayout, (err?: Error | null, image?: Buffer) => {
+              if (err) {
+                reject(err);
+                return;
+              }
+              resolve(image);
+            });
+          },
+        );
+      });
+    }),
+  );
 });

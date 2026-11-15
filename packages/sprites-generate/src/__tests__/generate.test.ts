@@ -52,7 +52,7 @@ test("generateLayoutUnique", async () => {
   expect(layout.items[0].y).toBe(0);
 });
 
-test("generateLayout", async () => {
+test("generateLayout with format:true", async () => {
   const layout = await generateLayout({
     imgs: getFixtures(),
     pixelRatio: 1,
@@ -64,7 +64,7 @@ test("generateLayout", async () => {
   expect(layout["unique-24"]).not.toEqual(layout["unique-24-copy"]);
 });
 
-test("generateLayoutUnique", async () => {
+test("generateLayoutUnique with format:true", async () => {
   const layout = await generateLayoutUnique({
     imgs: getFixtures(),
     pixelRatio: 1,

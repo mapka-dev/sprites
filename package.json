@@ -2,7 +2,7 @@
   "name": "@mapka/sprites-root",
   "version": "1.0.0",
   "engines": {
-    "node": "24.x"
+    "node": "26.x"
   },
   "main": "index.js",
   "type": "module",
@@ -26,28 +26,27 @@
     "*.{js,ts,tsx}": "yarn lint"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.1.4",
-    "@chyzwar/biome-config": "^0.3.0",
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
-    "@lerna-lite/cli": "^5.6.3",
-    "@lerna-lite/publish": "^5.6.3",
-    "@lerna-lite/version": "^5.6.3",
-    "@types/node": "^24.2.1",
-    "@vitest/coverage-v8": "^3.2.4",
-    "conventional-changelog-conventionalcommits": "^9.1.0",
+    "@biomejs/biome": "^2.6.7",
+    "@chyzwar/biome-config": "^0.4.4",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "@lerna-lite/cli": "^5.8.0",
+    "@lerna-lite/publish": "^5.8.0",
+    "@lerna-lite/version": "^5.8.0",
+    "@types/node": "^26.6.6",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "@vitest/coverage-v8": "^5.1.0",
+    "conventional-changelog-conventionalcommits": "^10.4.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.1.5",
-    "typescript": "^5.9.2",
-    "vitest": "3.2.4"
+    "lint-staged": "^17.6.0",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
   },
   "dependenciesMeta": {
     "@mapnik/mapnik": {
       "built": true
-    },
-    "esbuild": {
-      "built": true
     }
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "yarn@4.18.1"
 }
