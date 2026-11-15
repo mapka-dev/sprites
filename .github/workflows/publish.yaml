@@ -17,6 +17,7 @@ on:
     types: [closed]
     branches:
       - master
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -24,7 +25,7 @@ concurrency:
   
 jobs:
   publish:
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -68,16 +69,19 @@ jobs:
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor}}@users.noreply.github.com"
 
-    - name: "Version and publish"
+    - name: "Version"
+      if: github.event_name == 'pull_request'
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "Version"
         yarn lerna version \
           --conventional-commits \
           --yes
-        
-        echo "Publish"
-        yarn lerna publish from-git \
+
+    # from-package publishes every version missing from the registry, so a manual
+    # run on master retries a failed publish without re-tagging
+    - name: "Publish"
+      run: |
+        yarn lerna publish from-package \
           --loglevel debug \
           --yes
