@@ -59,10 +59,13 @@ test("image exported by Illustrator, rotated", () => {
     },
     (err?: Error, metadata?: Metadata) => {
       expect(err).toBeNull();
+      // svgo 4 rounds rotated path data differently from svgo 2 (spritezero's
+      // [[10.58, 14.257]] / [[3.73, 9.528]]); exact bounds are
+      // [[10.5809, 14.2578]] / [[3.7299, 9.5281]], so both are within 0.001px.
       expect(metadata).toEqual({
         content: [3.703, 5.806, 12.189, 14.291],
-        stretchY: [[10.58, 14.257]],
-        stretchX: [[3.73, 9.528]],
+        stretchY: [[10.581, 14.258]],
+        stretchX: [[3.73, 9.529]],
       });
     },
   );

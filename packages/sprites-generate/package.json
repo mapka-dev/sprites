@@ -20,7 +20,7 @@
     "@mapka/shelf-pack": "^0.4.1",
     "@mapnik/mapnik": "^4.8.2",
     "svg-boundings": "^2.0.8",
-    "svgo": "^2.8.0"
+    "svgo": "^4.1.0"
   },
   "devDependencies": {
     "@chyzwar/tsconfig": "^0.4.0",
